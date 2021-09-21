@@ -7,9 +7,9 @@ public class Account {
     private double amount;
     private ArrayList<Transaction> transactions;
 
-    public Account(String name, double amount) {
+    public Account(String name) {
         this.name = name;
-        this.amount = amount;
+        this.amount = 0;
         this.transactions = new ArrayList<Transaction>();
     }
 

@@ -25,7 +25,7 @@ public class Main {
                 String[] values = line.split(",");
                 if (!values[1].equals("From")) {
                     transactions.add(new Transaction(values[1], values[2], values[0], values[3], Double.parseDouble(values[4])));
-                    accounts.put(values[1], new Account(values[1], 0));
+                    accounts.put(values[1], new Account(values[1]));
                     accounts.get(values[1]).deductAmount(Double.parseDouble(values[4]));
                     accounts.get(values[1]).addTransaction(new Transaction(values[1], values[2], values[0], values[3], Double.parseDouble(values[4])));
                 }
