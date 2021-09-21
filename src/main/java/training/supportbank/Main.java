@@ -27,10 +27,12 @@ public class Main {
                 if (!values[1].equals("From")) {
                     String fromAccountName = values[1];
                     String toAccountName = values[2];
+                    String date = values[0];
+                    String narrative = values[3];
                     BigDecimal amount = new BigDecimal(values[4]);
 
                     // create the transaction objects
-                    Transaction theTransaction = new Transaction(fromAccountName, toAccountName, values[0], values[3], amount);
+                    Transaction theTransaction = new Transaction(fromAccountName, toAccountName, date, narrative, amount);
                     transactions.add(theTransaction);
 
                     // create the account objects
@@ -59,10 +61,10 @@ public class Main {
             String command = newScan.nextLine();
 
             if (command.toLowerCase().equals("all")) {
-                accounts.forEach((k, v) -> System.out.println("name: " + k + ", amount: " + v.getAmount()));
+                accounts.forEach((k, v) -> System.out.println(k + "'s account is at " + v.getAmount() + " GBP"));
             } else if (people.contains(command)) {
 
-                accounts.get(command).getTransactions();
+                accounts.get(command).printTransactions();
 
             } else {
                 System.out.println("Sorry, this is not a valid option. Please try again.");
