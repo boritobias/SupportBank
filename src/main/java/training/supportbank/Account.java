@@ -31,7 +31,8 @@ public class Account {
     }
 
     public ArrayList getTransactions() {
-        return transactions;
+        transactions.forEach(e -> System.out.println("date: "+ e.getDate() + ", narrative: " + e.getNarrative()));
+        return null;
     }
 
     public void addTransaction(Transaction transaction) {

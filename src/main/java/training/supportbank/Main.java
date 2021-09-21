@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Main {
@@ -49,7 +50,23 @@ public class Main {
                 }
             }
 
-            accounts.forEach((k, v) -> System.out.println(v));
+            // accounts.forEach((k, v) -> System.out.println(v));
+            ArrayList<String> people = new ArrayList<>(accounts.keySet());
+            System.out.println(people);
+
+            Scanner newScan = new Scanner(System.in);
+            System.out.println("Enter an account name or \"all\" to list all accounts");
+            String command = newScan.nextLine();
+
+            if (command.toLowerCase().equals("all")) {
+                accounts.forEach((k, v) -> System.out.println("name: " + k + ", amount: " + v.getAmount()));
+            } else if (people.contains(command)) {
+
+                accounts.get(command).getTransactions();
+
+            } else {
+                System.out.println("Sorry, this is not a valid option. Please try again.");
+            }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
