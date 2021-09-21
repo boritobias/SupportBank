@@ -1,15 +1,16 @@
 package training.supportbank;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class Account {
     private String name;
-    private double amount;
+    private BigDecimal amount;
     private ArrayList<Transaction> transactions;
 
     public Account(String name) {
         this.name = name;
-        this.amount = 0;
+        this.amount = new BigDecimal(0);
         this.transactions = new ArrayList<Transaction>();
     }
 
@@ -17,16 +18,16 @@ public class Account {
         return name;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void addAmount(double transaction) {
-        this.amount = amount + transaction;
+    public void addAmount(BigDecimal transaction) {
+        this.amount = amount.add(transaction);
     }
 
-    public void deductAmount(double transaction) {
-        this.amount = amount - transaction;
+    public void deductAmount(BigDecimal transaction) {
+        this.amount = amount.subtract(transaction);
     }
 
     public ArrayList getTransactions() {
@@ -35,6 +36,7 @@ public class Account {
 
     public void addTransaction(Transaction transaction) {
         this.transactions.add(transaction);
+        this.amount = amount.subtract(transaction.getAmount());
     }
 
     public String toString() {

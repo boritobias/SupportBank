@@ -1,13 +1,15 @@
 package training.supportbank;
 
+import java.math.BigDecimal;
+
 public class Transaction {
     private String oweFrom;
     private String oweTo;
     private String date;
     private String narrative;
-    private double amount;
+    private BigDecimal amount;
 
-    public Transaction(String oweFrom, String oweTo, String date, String narrative, double amount) {
+    public Transaction(String oweFrom, String oweTo, String date, String narrative, BigDecimal amount) {
         this.oweFrom = oweFrom;
         this.oweTo = oweTo;
         this.date = date;
@@ -31,7 +33,7 @@ public class Transaction {
         return narrative;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
