@@ -14,32 +14,35 @@ public class Main {
 
         FileReader fileReader = new FileReader(accounts, transactions);
 
-        while (accounts.isEmpty()) {
+        boolean noMoreFiles = false;
+        while (accounts.isEmpty() || !noMoreFiles) {
             Scanner newScan = new Scanner(System.in);
-            System.out.println("Enter the filename you want to read:");
+            System.out.println("Enter the filename you want to read. If you have every file, type stop");
             String command = newScan.nextLine();
-            fileReader.readFile(command);
+            if (command.toLowerCase().equals("stop")) {
+                noMoreFiles = true;
+            } else {
+                fileReader.readFile(command);
+            }
         }
 
         printListByUserInput(accounts);
     }
 
     private static void printListByUserInput(Map<String, Account> accounts) {
-        // If you need a reminder of the names, uncomment the line below
-        // System.out.println(people);
         ArrayList<String> people = new ArrayList<>(accounts.keySet());
 
         boolean commandToQuit = false;
         while (commandToQuit == false) {
             Scanner newScan = new Scanner(System.in);
             System.out.println();
-            System.out.println("Enter an account name or \"all\" to list all accounts. If you wish to stop, type quit");
+            System.out.println("Enter an account name or \"all\" to list all accounts. If you wish to quit, type stop");
             String command = newScan.nextLine();
             if (command.toLowerCase().equals("all")) {
                 accounts.forEach((k, v) -> System.out.println(k + "'s account is at " + v.getAmount() + " GBP"));
             } else if (people.contains(command)) {
                 accounts.get(command).getTransactions().forEach(System.out::println);
-            } else if (command.toLowerCase().equals("quit")) {
+            } else if (command.toLowerCase().equals("stop")) {
                 commandToQuit = true;
             } else {
                 System.out.println("Sorry, this is not a valid option. Please try again.");
