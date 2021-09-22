@@ -2,11 +2,13 @@ package training.supportbank;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,8 +37,14 @@ public class FileReader {
     }
 
     private void readJsonFile (String fileName) {
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
+//        GsonBuilder builder = new GsonBuilder();
+//        Gson gson = builder.create();
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (jsonElement, type, jsonDeserializationContext) ->
+                LocalDate.parse(jsonElement.getAsString())
+        );
+        Gson gson = gsonBuilder.create();
 
         try {
             BufferedReader br = new BufferedReader(new java.io.FileReader(fileName));
@@ -67,7 +75,11 @@ public class FileReader {
                 if (!values[1].equals("From")) {
                     String fromAccountName = values[1];
                     String toAccountName = values[2];
-                    String date = values[0];
+                    ArrayList<Integer> dateConvertToLocalDate = new ArrayList<>();
+                    for (String s : values[0].split("/")) {
+                        dateConvertToLocalDate.add(Integer.parseInt(s));
+                    }
+                    LocalDate date = LocalDate.of(dateConvertToLocalDate.get(2), dateConvertToLocalDate.get(1), dateConvertToLocalDate.get(0));
                     String narrative = values[3];
                     BigDecimal amount = new BigDecimal(values[4]);
 

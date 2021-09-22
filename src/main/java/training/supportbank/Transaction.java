@@ -1,15 +1,16 @@
 package training.supportbank;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Transaction {
     private String fromAccount;
     private String toAccount;
-    private String date;
+    private LocalDate date;
     private String narrative;
     private BigDecimal amount;
 
-    public Transaction(String date, String fromAccount, String toAccount, String narrative, BigDecimal amount) {
+    public Transaction(LocalDate date, String fromAccount, String toAccount, String narrative, BigDecimal amount) {
         this.fromAccount = fromAccount;
         this.toAccount = toAccount;
         this.date = date;
@@ -25,7 +26,7 @@ public class Transaction {
         return toAccount;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
