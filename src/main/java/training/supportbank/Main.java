@@ -36,25 +36,18 @@ public class Main {
                     transactions.add(theTransaction);
 
                     // create the account objects
-                    Account fromAccount = accounts.get(fromAccountName);
-                    if (fromAccount == null) {
-                        fromAccount = new Account(fromAccountName);
-                        accounts.put(fromAccountName, fromAccount);
-                    }
+                    createAccountObject(accounts, fromAccountName);
                     accounts.get(fromAccountName).addTransaction(theTransaction);
 
-                    Account toAccount = accounts.get(toAccountName);
-                    if (toAccount == null) {
-                        toAccount = new Account(toAccountName);
-                        accounts.put(toAccountName, toAccount);
-                    }
+                    createAccountObject(accounts, toAccountName);
+                    accounts.get(toAccountName).addTransaction(theTransaction);
                     accounts.get(toAccountName).addAmount(amount);
                 }
             }
 
-            // accounts.forEach((k, v) -> System.out.println(v));
             ArrayList<String> people = new ArrayList<>(accounts.keySet());
-            System.out.println(people);
+            // If you need a reminder of the names, uncomment the line below
+            // System.out.println(people);
 
             Scanner newScan = new Scanner(System.in);
             System.out.println("Enter an account name or \"all\" to list all accounts");
@@ -63,9 +56,7 @@ public class Main {
             if (command.toLowerCase().equals("all")) {
                 accounts.forEach((k, v) -> System.out.println(k + "'s account is at " + v.getAmount() + " GBP"));
             } else if (people.contains(command)) {
-
                 accounts.get(command).printTransactions();
-
             } else {
                 System.out.println("Sorry, this is not a valid option. Please try again.");
             }
@@ -74,6 +65,14 @@ public class Main {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void createAccountObject(Map<String, Account> accounts, String accountName) {
+        Account account = accounts.get(accountName);
+        if (account == null) {
+            account = new Account(accountName);
+            accounts.put(accountName, account);
         }
     }
 }

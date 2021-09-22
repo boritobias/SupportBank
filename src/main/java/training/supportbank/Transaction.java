@@ -7,6 +7,7 @@ public class Transaction {
     private String oweTo;
     private String date;
     private String narrative;
+
     private BigDecimal amount;
 
     public Transaction(String oweFrom, String oweTo, String date, String narrative, BigDecimal amount) {
