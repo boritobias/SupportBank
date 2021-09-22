@@ -37,9 +37,6 @@ public class FileReader {
     }
 
     private void readJsonFile (String fileName) {
-//        GsonBuilder builder = new GsonBuilder();
-//        Gson gson = builder.create();
-
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (jsonElement, type, jsonDeserializationContext) ->
                 LocalDate.parse(jsonElement.getAsString())

@@ -38,7 +38,7 @@ public class Main {
             if (command.toLowerCase().equals("all")) {
                 accounts.forEach((k, v) -> System.out.println(k + "'s account is at " + v.getAmount() + " GBP"));
             } else if (people.contains(command)) {
-                accounts.get(command).printTransactions();
+                accounts.get(command).getTransactions().forEach(System.out::println);
             } else if (command.toLowerCase().equals("quit")) {
                 commandToQuit = true;
             } else {

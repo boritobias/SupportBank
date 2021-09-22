@@ -34,12 +34,6 @@ public class Account {
         return transactions;
     }
 
-    public ArrayList printTransactions() {
-        System.out.println("Transactions:");
-        transactions.forEach(e -> System.out.println("date: "+ e.getDate() + ", narrative: " + e.getNarrative() + ", from: " + e.getFromAccount() + ", to: " + e.getToAccount() + ", amount: " + e.getAmount()));
-        return null;
-    }
-
     public void addTransaction(Transaction transaction) {
         this.transactions.add(transaction);
     }

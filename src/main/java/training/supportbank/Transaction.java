@@ -39,10 +39,6 @@ public class Transaction {
     }
 
     public String toString() {
-        return "date: '" + date + '\'' +
-                ", from: '" + fromAccount + '\'' +
-                ", to: '" + toAccount + '\'' +
-                ", narrative: '" + narrative + '\'' +
-                ", amount: '" + amount + '\'';
+        return fromAccount + " gave " + toAccount + " £" + amount + " for " + narrative + " on " + date;
     }
 }
