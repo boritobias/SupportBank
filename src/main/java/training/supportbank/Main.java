@@ -81,16 +81,10 @@ public class Main {
             for (Transaction transaction : list) {
 
                 transactions.add(transaction);
-                createAccountObject(accounts, transaction.getFromAccount(), transaction);
-                accounts.get(transaction.getFromAccount()).deductAmount(transaction.getAmount());
-
-                createAccountObject(accounts, transaction.getToAccount(), transaction);
-                accounts.get(transaction.getToAccount()).addAmount(transaction.getAmount());
+                createAccountObjects(accounts, transaction.getFromAccount(), transaction.getToAccount(), transaction.getAmount(), transaction);
             }
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -115,12 +109,7 @@ public class Main {
                     Transaction theTransaction = new Transaction(date, fromAccountName, toAccountName, narrative, amount);
                     transactions.add(theTransaction);
 
-                    // create the account objects
-                    createAccountObject(accounts, fromAccountName, theTransaction);
-                    accounts.get(fromAccountName).deductAmount(amount);
-
-                    createAccountObject(accounts, toAccountName, theTransaction);
-                    accounts.get(toAccountName).addAmount(amount);
+                    createAccountObjects(accounts, fromAccountName, toAccountName, amount, theTransaction);
                 }
             }
 
@@ -129,5 +118,13 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void createAccountObjects(Map<String, Account> accounts, String fromAccountName, String toAccountName, BigDecimal amount, Transaction theTransaction) {
+        createAccountObject(accounts, fromAccountName, theTransaction);
+        accounts.get(fromAccountName).deductAmount(amount);
+
+        createAccountObject(accounts, toAccountName, theTransaction);
+        accounts.get(toAccountName).addAmount(amount);
     }
 }
