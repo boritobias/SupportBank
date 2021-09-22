@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class Main {
@@ -36,11 +35,10 @@ public class Main {
                     transactions.add(theTransaction);
 
                     // create the account objects
-                    createAccountObject(accounts, fromAccountName);
-                    accounts.get(fromAccountName).addTransaction(theTransaction);
+                    createAccountObject(accounts, fromAccountName, theTransaction);
+                    accounts.get(fromAccountName).deductAmount(amount);
 
-                    createAccountObject(accounts, toAccountName);
-                    accounts.get(toAccountName).addTransaction(theTransaction);
+                    createAccountObject(accounts, toAccountName, theTransaction);
                     accounts.get(toAccountName).addAmount(amount);
                 }
             }
@@ -53,13 +51,7 @@ public class Main {
             System.out.println("Enter an account name or \"all\" to list all accounts");
             String command = newScan.nextLine();
 
-            if (command.toLowerCase().equals("all")) {
-                accounts.forEach((k, v) -> System.out.println(k + "'s account is at " + v.getAmount() + " GBP"));
-            } else if (people.contains(command)) {
-                accounts.get(command).printTransactions();
-            } else {
-                System.out.println("Sorry, this is not a valid option. Please try again.");
-            }
+            printListByUserInput(accounts, people, command);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -68,11 +60,22 @@ public class Main {
         }
     }
 
-    private static void createAccountObject(Map<String, Account> accounts, String accountName) {
+    private static void printListByUserInput(Map<String, Account> accounts, ArrayList<String> people, String command) {
+        if (command.toLowerCase().equals("all")) {
+            accounts.forEach((k, v) -> System.out.println(k + "'s account is at " + v.getAmount() + " GBP"));
+        } else if (people.contains(command)) {
+            accounts.get(command).printTransactions();
+        } else {
+            System.out.println("Sorry, this is not a valid option. Please try again.");
+        }
+    }
+
+    private static void createAccountObject(Map<String, Account> accounts, String accountName, Transaction theTransaction) {
         Account account = accounts.get(accountName);
         if (account == null) {
             account = new Account(accountName);
             accounts.put(accountName, account);
         }
+        accounts.get(accountName).addTransaction(theTransaction);
     }
 }

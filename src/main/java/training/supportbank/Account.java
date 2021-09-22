@@ -42,7 +42,6 @@ public class Account {
 
     public void addTransaction(Transaction transaction) {
         this.transactions.add(transaction);
-        this.amount = amount.subtract(transaction.getAmount());
     }
 
     public String toString() {
